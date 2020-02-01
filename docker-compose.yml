@@ -5,3 +5,7 @@ services:
     image: sixeyed/pi:${TAG:-2002}
     build:
       context: .
+      cache_from:
+        - sixeyed/pi:${TAG:-2002}
+      args:
+        BUILDKIT_INLINE_CACHE: 1
