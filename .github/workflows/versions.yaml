@@ -1,0 +1,16 @@
+name: Check versions
+
+on:
+  push:
+    paths:
+      - "src/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check tool versions
+        run: |
+          docker version
+          docker-compose version
+          docker buildx version
