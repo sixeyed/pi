@@ -1,0 +1,20 @@
+name: Build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Build and push image
+        run: |
+          docker login -u $USER -p $TOKEN  
+          docker image build \
+            -t $TAG \
+            .
+          docker image push $TAG
+        env:
+          USER: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          TAG: sixeyed/pi:2002-ci-buildx
