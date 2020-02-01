@@ -2,6 +2,6 @@ version: "3.6"
 
 services:
   pi:
-    image: sixeyed/pi:2001
+    image: sixeyed/pi:${TAG:-2002}
     build:
       context: .
