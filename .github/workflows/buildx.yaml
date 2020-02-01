@@ -18,6 +18,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Build and push image
         run: |
+          docker buildx version
           docker buildx build \
             -t $TAG \
             --cache-from=type=registry,ref=$CACHE_TAG \
