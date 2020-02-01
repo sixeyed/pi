@@ -11,14 +11,10 @@ jobs:
         uses: crazy-max/ghaction-docker-buildx@v1
         with:
           version: latest
-      - name: Login to Docker Hub
-        uses: azure/docker-login@v1
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Build and push image
         run: |
-          docker buildx version
+          docker buildx version  
+          docker login -u $USER -p $TOKEN          
           docker buildx build \
             -t $TAG \
             --cache-from=type=registry,ref=$CACHE_TAG \
@@ -26,5 +22,7 @@ jobs:
             --push \
             .
         env:
+          USER: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           TAG: sixeyed/pi:2002-ci-buildx
           CACHE_TAG: sixeyed/pi:2002-ci-buildx-cache
