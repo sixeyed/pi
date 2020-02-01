@@ -11,7 +11,14 @@ jobs:
         uses: crazy-max/ghaction-docker-buildx@v1
         with:
           version: latest
-      - name: Check versions
+      - name: Build and push image
         run: |
-          docker version
-          docker buildx version
+          docker buildx build \
+            -t $TAG \
+            --cache-from=type=registry,ref=$CACHE_TAG \
+            --cache-to=type=registry,ref=$CACHE_TAG,mode=max \
+            --push \
+            .
+        env:
+          TAG: 2002-ci-buildx
+          CACHE_TAG: 2002-ci-buildx-cache
