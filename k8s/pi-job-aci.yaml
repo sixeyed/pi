@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi-aci
+spec:
+  template:
+    spec:
+      containers:
+        - name: pi
+          image: sixeyed/pi:2001
+          imagePullPolicy: Always
+          command: ["dotnet", "Pi.Web.dll", "-m", "console", "-dp", "5000"]
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1Gi"
+      restartPolicy: Never
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+        kubernetes.io/role: agent
+        type: virtual-kubelet
+      tolerations:
+        - key: virtual-kubelet.io/provider
+          operator: Exists
+        - key: azure.com/aci
+          effect: NoSchedule

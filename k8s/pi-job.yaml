@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      containers:
+        - name: pi
+          image: sixeyed/pi:2001
+          command: ["dotnet", "Pi.Web.dll", "-m", "console", "-dp", "5000"]
+      restartPolicy: Never
