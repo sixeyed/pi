@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  push:
+    paths:
+      - "src/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Login to Docker Hub
+        uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Build and push image
+        run: |
+          docker image build \
+            -t $TAG \
+            .
+          docker image push $TAG
+        env:
+          TAG: sixeyed/pi:github
