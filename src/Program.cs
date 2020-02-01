@@ -22,7 +22,7 @@ namespace Pi.Web
                 switch (arguments.Mode)
                 {
                     case RunMode.Web:
-                        Console.WriteLine("Running in web mode...");
+                        Console.WriteLine("Running in API mode...");
                         CreateHostBuilder(args).Build().Run();
                         break;
 
