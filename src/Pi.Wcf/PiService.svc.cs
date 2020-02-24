@@ -1,17 +1,17 @@
 ﻿using Pi.Math;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
+using System.Configuration;
 
 namespace Pi.Wcf
 {
     public class PiService : IPiService
     {
         private static readonly int _DefaultDp = 6;
+        private static readonly bool _MetricsEnabled;
+
+        static PiService()
+        {
+            _MetricsEnabled = bool.Parse(ConfigurationManager.AppSettings["Computation:Metrics:Enabled"]);
+        }
 
         public string Pi(string dp)
         {
@@ -20,7 +20,7 @@ namespace Pi.Wcf
             {
                 actualDp = _DefaultDp;
             }
-            var pi = MachinFormula.Calculate(actualDp);
+            var pi = MachinFormula.Calculate(actualDp, _MetricsEnabled);
             return pi.ToString();
         }
     }

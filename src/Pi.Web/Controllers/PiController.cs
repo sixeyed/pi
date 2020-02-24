@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Pi.Math;
 using Pi.Web.Models;
 using System;
@@ -8,11 +9,20 @@ namespace Pi.Web.Controllers
 {
     public class PiController : Controller
     {
+        private readonly IConfiguration _config;
+        private readonly bool _metricsEnabled;
+
+        public PiController(IConfiguration config)
+        {
+            _config = config;
+            _metricsEnabled = bool.Parse(_config["Computation:Metrics:Enabled"]);
+        }
+
         public IActionResult Index(int? dp = 6)
         {
             var stopwatch = Stopwatch.StartNew();
 
-            var pi = MachinFormula.Calculate(dp.Value);
+            var pi = MachinFormula.Calculate(dp.Value, _metricsEnabled);
 
             var model = new PiViewModel
             {
