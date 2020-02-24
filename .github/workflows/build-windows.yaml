@@ -19,7 +19,7 @@ jobs:
         working-directory: .
         run: |
           docker login -u $env:USER -p $env:TOKEN
-          docker-compose build netfx
+          docker-compose build pi-netfx
           docker image push sixeyed/pi-netfx:2002
         env:
           USER: ${{ secrets.DOCKER_HUB_USERNAME }}
@@ -33,7 +33,7 @@ jobs:
         working-directory: .
         run: |
           docker login -u $env:USER -p $env:TOKEN
-          docker-compose build wcf
+          docker-compose build pi-wcf
           docker image push sixeyed/pi-wcf:2002
         env:
           USER: ${{ secrets.DOCKER_HUB_USERNAME }}
