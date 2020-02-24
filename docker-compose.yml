@@ -5,7 +5,20 @@ services:
     image: sixeyed/pi:${TAG:-2002}
     build:
       context: .
+      dockerfile: ./docker/web/Dockerfile
       cache_from:
         - sixeyed/pi:${TAG:-2002}
       args:
         BUILDKIT_INLINE_CACHE: 1
+
+  pi-netfx:
+    image: sixeyed/pi:netfx-${TAG:-2002}
+    build:
+      context: .
+      dockerfile: ./docker/netfx/Dockerfile
+
+  pi-wcf:
+    image: sixeyed/pi:wcf-${TAG:-2002}
+    build:
+      context: .
+      dockerfile: ./docker/wcf/Dockerfile

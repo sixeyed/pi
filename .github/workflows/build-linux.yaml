@@ -1,20 +1,24 @@
-name: Build
+name: Linux Image Build
 
-on: push
+on:
+  push:
+    paths:
+      - "docker/**"
+      - "src/**"
+  schedule:
+    - cron: "0 0-7 * * *"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Build and push image
+      - name: Build and push .NET Core
+        working-directory: .
         run: |
           docker login -u $USER -p $TOKEN  
-          docker image build \
-            -t $TAG \
-            .
-          docker image push $TAG
+          docker-compose build pi
+          docker-compose push
         env:
           USER: ${{ secrets.DOCKER_HUB_USERNAME }}
           TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          TAG: sixeyed/pi:2002-ci-buildx

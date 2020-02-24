@@ -1,4 +1,4 @@
-namespace Pi.Web.Math
+namespace Pi.Math
 {
     public class Atan
     {

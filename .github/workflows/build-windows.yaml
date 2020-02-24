@@ -1,0 +1,40 @@
+name: Windows image build
+
+on:
+  push:
+    paths:
+      - "docker/**"
+      - "src/**"
+  schedule:
+    - cron: "0 0-7 * * *"
+
+# split into multiple builds, otherwise the runner runs out of disk space...
+# and docker-compose push fails with exitcode 1, so push manually
+jobs:
+  build-netfx:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@master
+      - name: Build and push console
+        working-directory: .
+        run: |
+          docker login -u $env:USER -p $env:TOKEN
+          docker-compose build netfx
+          docker image push sixeyed/pi-netfx:2002
+        env:
+          USER: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+  build-wcf:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@master
+      - name: Build and push WCF
+        working-directory: .
+        run: |
+          docker login -u $env:USER -p $env:TOKEN
+          docker-compose build wcf
+          docker image push sixeyed/pi-wcf:2002
+        env:
+          USER: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}

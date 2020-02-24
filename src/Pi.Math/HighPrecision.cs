@@ -1,7 +1,7 @@
 using System.Numerics;
 using System.Text;
 
-namespace Pi.Web.Math
+namespace Pi.Math
 {
     public class HighPrecision
     {

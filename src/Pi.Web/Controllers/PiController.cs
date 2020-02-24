@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
+using Pi.Math;
+using Pi.Web.Models;
 using System;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Pi.Web.Math;
-using Pi.Web.Models;
 
 namespace Pi.Web.Controllers
 {
@@ -11,11 +11,8 @@ namespace Pi.Web.Controllers
         public IActionResult Index(int? dp = 6)
         {
             var stopwatch = Stopwatch.StartNew();
-            HighPrecision.Precision = dp.Value;
-            HighPrecision first = 4 * Atan.Calculate(5);
-            HighPrecision second = Atan.Calculate(239);
 
-            var pi = 4 * (first - second);
+            var pi = MachinFormula.Calculate(dp.Value);
 
             var model = new PiViewModel
             {

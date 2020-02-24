@@ -1,7 +1,8 @@
 ﻿using PowerArgs;
 
-namespace Pi.Web
+namespace Pi.Runtime
 {
+    [AllowUnexpectedArgs]
     public class Arguments
     {
         [ArgDefaultValue("console")]

@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Pi.Web.Math;
+using Pi.Math;
+using Pi.Runtime;
 using PowerArgs;
+using System;
+using System.IO;
 
 namespace Pi.Web
 {
@@ -44,11 +40,7 @@ namespace Pi.Web
 
         private static string GetPi(int decimalPlaces)
         {
-            HighPrecision.Precision = decimalPlaces;
-            HighPrecision first = 4 * Atan.Calculate(5);
-            HighPrecision second = Atan.Calculate(239);
-            var pi = 4 * (first - second);
-            return pi.ToString();
+            return MachinFormula.Calculate(decimalPlaces).ToString();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
