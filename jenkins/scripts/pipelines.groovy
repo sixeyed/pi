@@ -10,7 +10,7 @@ import org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition;
 
 def gitUser = "pi"
 def gitRepo = "pi"
-def gitUrl = "http://gogs:3000/${gitUser}/${gitRepo}.git"
+def gitUrl = "https://github.com/sixeyed/pi.git"
 
 def jenkins = Jenkins.instance;
 
