@@ -16,11 +16,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh '''
-                    docker-compose up -d
-                    docker-compose ps
-                    docker-compose down
-                '''
+                sh 'docker container run pi:bday7 -dp 7'
             }
         }
         stage('Push') {
@@ -28,7 +24,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
                     sh '''
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker-compose push
+                        docker image tag pi:bday7 $HUB_USER/pi:bday7
+                        docker image push $HUB_USER/pi:bday7
                     '''
                 }
             }
