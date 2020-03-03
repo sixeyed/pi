@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-configmap
+  namespace: pi
+data:
+  Computation__Metrics__Enabled: "true"
