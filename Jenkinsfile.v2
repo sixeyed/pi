@@ -13,13 +13,14 @@ pipeline {
                 sh 'docker image build -t sixeyed/pi-psod -f ./docker/web/Dockerfile.v2 .'
             }
         }
-        stage('Copy test results') {
+        stage('Publish test results') {
             steps {
                 sh '''
                   id=$(docker container create sixeyed/pi-psod)
                   docker cp $id:/app/test-results/ .
                   docker container rm -f $id
                 '''
+                mstest testResultsFile:"**/*.trx"
             }
         }
         stage('Push') {

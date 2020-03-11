@@ -21,6 +21,7 @@ pipeline {
         stage('Unit Test') {
             steps {
                 sh 'chmod +x ./ci/03-unit-test.sh && ./ci/03-unit-test.sh'
+                mstest testResultsFile:"**/*.trx"
             }
         }
         stage('Push') {
