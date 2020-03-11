@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build & Test') {
             steps {
-                sh 'docker image build -t sixeyed/pi-psod -f .\docker\web\Dockerfile.v2 .'
+                sh 'docker image build -t sixeyed/pi-psod -f ./docker/web/Dockerfile.v2 .'
             }
         }
         stage('Copy test results') {
