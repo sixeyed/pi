@@ -3,9 +3,8 @@ pipeline {
     stages {
         stage('Verify') {
             steps {
-                sh '''
-                    docker version
-                '''
+                slackSend "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Link>)"
+                sh 'docker version'
             }
         }
         stage('Build & Test') {
@@ -30,6 +29,7 @@ pipeline {
                       docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
                       docker image push sixeyed/pi-psod
                     '''
+                    slackSend "Build Completed - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Link>)"
                 }
             }
         }

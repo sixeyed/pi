@@ -3,9 +3,8 @@ pipeline {
     stages {
         stage('Verify') {
             steps {
-                sh '''
-                    docker version
-                '''
+                slackSend "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Link>)"
+                sh 'docker version'
             }
         }
         stage('Build') {
@@ -28,6 +27,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {                      
                     sh 'chmod +x ./ci/04-push.sh && ./ci/04-push.sh'
+                    slackSend "Build Completed - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Link>)"
                 }
             }
         }
