@@ -19,6 +19,7 @@ jobs:
           docker login -u $USER -p $TOKEN  
           docker-compose build pi
           docker-compose push pi
+          docker logout
         env:
           USER: ${{ secrets.DOCKER_HUB_USERNAME }}
           TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
