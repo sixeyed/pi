@@ -29,8 +29,8 @@ namespace Pi.Api.Processors
             {
                 Requests = new Dictionary<string, ResourceQuantity>()
                 {
-                    { "cpu", new ResourceQuantity("4") },
-                    { "memory", new ResourceQuantity($"16Gi")}
+                    { "cpu", new ResourceQuantity("1") },
+                    { "memory", new ResourceQuantity($"1Gi")}
                 }
             };
 

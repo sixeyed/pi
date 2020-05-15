@@ -11,7 +11,7 @@ RUN dotnet publish -c Release -o /out Pi.Api.csproj
 FROM  mcr.microsoft.com/dotnet/core/aspnet:3.1.4
 
 EXPOSE 80
-WORKDIR /api
+WORKDIR /app
 ENTRYPOINT ["dotnet", "Pi.Api.dll"]
 
 COPY --from=builder /out/ .
