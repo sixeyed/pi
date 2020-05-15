@@ -23,3 +23,17 @@ jobs:
         env:
           USER: ${{ secrets.DOCKER_HUB_USERNAME }}
           TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Build and push .NET Core API
+        working-directory: .
+        run: |
+          docker login -u $USER -p $TOKEN  
+          docker-compose build pi-api
+          docker-compose push pi-api
+          docker logout
+        env:
+          USER: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}

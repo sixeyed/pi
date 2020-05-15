@@ -11,6 +11,16 @@ services:
       args:
         BUILDKIT_INLINE_CACHE: 1
 
+  pi-api:
+    image: sixeyed/pi:api-${TAG:-2002}
+    build:
+      context: .
+      dockerfile: ./docker/api/Dockerfile
+      cache_from:
+        - sixeyed/pi:${TAG:-2002}
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+
   pi-netfx:
     image: sixeyed/pi:netfx-${TAG:-2002}
     build:
