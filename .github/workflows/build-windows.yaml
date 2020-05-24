@@ -40,3 +40,18 @@ jobs:
         env:
           USER: ${{ secrets.DOCKER_HUB_USERNAME }}
           TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+  build-api:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@master
+      - name: Build and push Windows .NET Core API
+        working-directory: .
+        run: |
+          docker login -u $USER -p $TOKEN  
+          docker-compose build pi-api-win
+          docker-compose push pi-api-win
+          docker logout
+        env:
+          USER: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
