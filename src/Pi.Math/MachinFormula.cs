@@ -11,11 +11,11 @@ namespace Pi.Math
         private static readonly Dictionary<string, Tuple<int, int>> _DpBuckets = new Dictionary<string, Tuple<int, int>>()
             {
                 {"1K", new Tuple<int, int>(0, 1000) },
-                {"10K", new Tuple<int, int>(1000, 10000) },
-                {"50K", new Tuple<int, int>(10000, 50000) },
-                {"100K", new Tuple<int, int>(50000, 100000) },
-                {"500K", new Tuple<int, int>(100000, 500000) },
-                {"1M", new Tuple<int, int>(500000, 1000000) }
+                {"10K", new Tuple<int, int>(1001, 10000) },
+                {"50K", new Tuple<int, int>(10001, 50000) },
+                {"100K", new Tuple<int, int>(50001, 100000) },
+                {"500K", new Tuple<int, int>(100001, 500000) },
+                {"1M", new Tuple<int, int>(500001, 1000000) }
             };
 
         private static readonly Counter _ComputeCounter;
@@ -59,7 +59,7 @@ namespace Pi.Math
             var labels = new string[]
             {
                 _DpBuckets.First(x=> decimalPlaces > x.Value.Item1 &&
-                                     decimalPlaces < x.Value.Item2).Key
+                                     decimalPlaces <= x.Value.Item2).Key
             };
 
             _ComputeCounter.WithLabels(labels).Inc();

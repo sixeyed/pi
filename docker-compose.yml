@@ -2,39 +2,44 @@ version: "3.6"
 
 services:
   pi:
-    image: sixeyed/pi:${TAG:-2002}
+    image: sixeyed/pi:${TAG:-20.05}
     build:
       context: .
       dockerfile: ./docker/web/Dockerfile
       cache_from:
-        - sixeyed/pi:${TAG:-2002}
+        - sixeyed/pi:${TAG:-20.05}
       args:
         BUILDKIT_INLINE_CACHE: 1
 
   pi-api:
-    image: sixeyed/pi:api-${TAG:-2002}
+    image: sixeyed/pi:api-${TAG:-20.05}
     build:
       context: .
       dockerfile: ./docker/api/Dockerfile
       cache_from:
-        - sixeyed/pi:api-${TAG:-2002}
+        - sixeyed/pi:api-${TAG:-20.05}
       args:
         BUILDKIT_INLINE_CACHE: 1
 
   pi-api-win:
-    image: sixeyed/pi:api-win-${TAG:-2002}
+    image: sixeyed/pi:api-win-${TAG:-20.05}
     build:
       context: .
       dockerfile: ./docker/api/Dockerfile
 
   pi-netfx:
-    image: sixeyed/pi:netfx-${TAG:-2002}
+    image: sixeyed/pi:netfx-${TAG:-20.05}
     build:
       context: .
       dockerfile: ./docker/netfx/Dockerfile
 
   pi-wcf:
-    image: sixeyed/pi:wcf-${TAG:-2002}
+    image: sixeyed/pi:wcf-${TAG:-20.05}
     build:
       context: .
       dockerfile: ./docker/wcf/Dockerfile
+
+  pi-proxy:
+    image: sixeyed/pi:proxy-${TAG:-20.05}
+    build:
+      context: ./docker/proxy
