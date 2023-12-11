@@ -10,6 +10,7 @@ pipeline {
         stage('Build & Test') {
             steps {
                 sh 'docker image build -t sixeyed/pi-psod -f ./docker/web/Dockerfile.v2 .'
+                 dotnet --list-sdks
             }
         }
         stage('Publish test results') {
